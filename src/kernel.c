@@ -72,5 +72,5 @@ void kernel_main() {
 
     idt_init();
 
-    outb(0x60, 0xFF);
+
 }
