@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "config.h": "c",
-        "idt.h": "c"
+        "idt.h": "c",
+        "kheap.h": "c"
     }
 }
