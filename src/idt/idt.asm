@@ -5,7 +5,15 @@ global idt_load
 global int21h
 extern no_interrupt_handler
 global no_interrupt
+global enable_int
+global desible_int
 
+enable_int:
+    sti
+    ret
+disable_int:
+    cli
+    ret
 idt_load:
     push ebp
     mov ebp, esp

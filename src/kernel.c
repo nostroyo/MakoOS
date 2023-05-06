@@ -4,6 +4,8 @@
 #include "./idt/idt.h"
 #include "./IO/io.h"
 #include "mem/heap/kheap.h"
+#include "mem/paging/paging.h"
+#include "disk/disk.h"
 
 
 uint16_t* video_mem = 0;
@@ -67,13 +69,23 @@ void print(const char* str) {
 }
 
 
-
+static paging_four_GB_chunck* chunk_dir = 0;
 void kernel_main() {
     terminal_init();
     print("Hello, world! \ntest");
 
 
     kheap_init();
+
+    disk_search_and_init();
+
     idt_init();
+    chunk_dir =  paging_new_4gb(PAGING_IS_WRITABLE | PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL);
+    paging_switch(paging_get_directory(chunk_dir));
+
+    enable_paging();
+    
+
+    enable_int();
  
 }

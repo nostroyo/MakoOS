@@ -1,4 +1,4 @@
-FILES = ./build/kernel.asm.o build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/mem/mem.o ./build/IO/io.asm.o ./build/mem/heap/heap.o ./build/mem/heap/kheap.o
+FILES = ./build/kernel.asm.o build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/mem/mem.o ./build/IO/io.asm.o ./build/mem/heap/heap.o ./build/mem/heap/kheap.o ./build/mem/paging/paging.o ./build/mem/paging/paging.asm.o ./build/disk/disk.o
 INCLUDES = -I./src
 FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 
@@ -40,6 +40,14 @@ all: ./bin/boot.bin ./bin/kernel.bin
 ./build/mem/heap/kheap.o: ./src/mem/heap/kheap.c
 	i686-elf-gcc $(INCLUDES) -I ./src/mem/heap $(FLAGS) -std=gnu99 -c ./src/mem/heap/kheap.c -o ./build/mem/heap/kheap.o
 
+./build/mem/paging/paging.o: ./src/mem/paging/paging.c
+	i686-elf-gcc $(INCLUDES) -I ./src/mem/paging $(FLAGS) -std=gnu99 -c ./src/mem/paging/paging.c -o ./build/mem/paging/paging.o
+
+./build/mem/paging/paging.asm.o: ./src/mem/paging/paging.asm
+	nasm -f elf -g ./src/mem/paging/paging.asm -o ./build/mem/paging/paging.asm.o
+
+./build/disk/disk.o: ./src/disk/disk.c
+	i686-elf-gcc $(INCLUDES) -I ./src/disk $(FLAGS) -std=gnu99 -c ./src/disk/disk.c -o ./build/disk/disk.o
 
 clean:
 	rm -rf ./bin/boot.bin
