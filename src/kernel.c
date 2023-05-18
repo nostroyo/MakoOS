@@ -6,6 +6,7 @@
 #include "mem/heap/kheap.h"
 #include "mem/paging/paging.h"
 #include "disk/disk.h"
+#include "string/string.h"
 
 
 uint16_t* video_mem = 0;
@@ -47,19 +48,8 @@ void terminal_init() {
         }
     }
 }
-
-size_t strLen(const char* str) {
-    size_t len = 0;
-    while (str[len])
-    {
-        len++;
-
-    }
-    return len;
-}
-
 void print(const char* str) {
-    size_t len = strLen(str);
+    size_t len = strlen(str);
 
     for (int i = 0; i < len; i++)
     {
