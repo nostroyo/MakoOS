@@ -13,4 +13,8 @@
 #define HEAP_TABLE_ADDRESS 0x7E00
 
 #define SECTOR_SIZE 512
+
+#define MAX_FS 12
+
+#define MAX_FILE_DESCR 512
 #endif

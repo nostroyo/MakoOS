@@ -67,6 +67,8 @@ void kernel_main() {
 
     kheap_init();
 
+    fs_init();
+
     disk_search_and_init();
 
     idt_init();
@@ -74,8 +76,11 @@ void kernel_main() {
     paging_switch(paging_get_directory(chunk_dir));
 
     enable_paging();
-    
 
     enable_int();
+
+
+    char tmp[20];
+    strcpy(tmp, "MAKO OS");
  
 }

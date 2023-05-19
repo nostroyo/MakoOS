@@ -4,7 +4,7 @@
 #include "config.h"
 #include "status.h"
 
-disk disk_data;
+struct disk disk_data;
 
 int disk_read_sector(int lba, int total, void* buf)
 {
@@ -38,13 +38,14 @@ int disk_read_sector(int lba, int total, void* buf)
 
 void disk_search_and_init()
 {
-    memset(&disk_data, 0, sizeof(disk));
+    memset(&disk_data, 0, sizeof(struct disk));
     disk_data.type = DISK_TYPE_REAL;
     disk_data.sector_size = SECTOR_SIZE;
+    disk_data.fs = fs_resolve(&disk_data);
 
 }
 
-disk* disk_get(int idx)
+struct disk* disk_get(int idx)
 {
     if (idx != 0)
     {return 0;}
@@ -52,7 +53,7 @@ disk* disk_get(int idx)
     return &disk_data;
 }
 
-int disk_read_block(disk* idisk, unsigned int lba, int total, void* buff)
+int disk_read_block(struct disk* idisk, unsigned int lba, int total, void* buff)
 {
     if (idisk != &disk_data)
     {
