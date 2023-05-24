@@ -10,7 +10,11 @@ struct disk
     DISK_TYPE type;
     int sector_size;
 
+    int id;
+
     filesystem* fs;
+
+    void* fs_private;
 
 } ;
 

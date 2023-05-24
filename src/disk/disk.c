@@ -42,6 +42,7 @@ void disk_search_and_init()
     disk_data.type = DISK_TYPE_REAL;
     disk_data.sector_size = SECTOR_SIZE;
     disk_data.fs = fs_resolve(&disk_data);
+    disk_data.id = 0;
 
 }
 
